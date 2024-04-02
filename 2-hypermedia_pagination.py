@@ -5,6 +5,7 @@ doc
 import csv
 import math
 from typing import List
+from math import ceil
 
 
 def index_range(page: int, page_size: int):
@@ -35,9 +36,34 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        doc
+        """
         assert isinstance(page, int)
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
         start, end = index_range(page, page_size)
         return self.dataset()[start:end]
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        doc
+        """
+        assert isinstance(page, int)
+        assert isinstance(page_size, int)
+        assert page > 0
+        assert page_size > 0
+        start, end = index_range(page, page_size)
+        fdata = self.dataset()
+        data = fdata[start:end]
+        hyper = {}
+        hyper["page_size"] = len(data)
+        hyper["page"] = page
+        hyper["data"] = data
+        total = len(fdata) / page_size
+        total = ceil(total)
+        hyper["next_page"] = page + 1 if page != total else None
+        hyper["prev_page"] = None if page < 2 else page - 1
+        hyper["total_page"] = total
+        return hyper

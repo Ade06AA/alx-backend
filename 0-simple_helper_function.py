@@ -4,6 +4,7 @@ from typing import Tuple
 doc
 """
 
+
 def index_range(page: int, page_size: int):
     """
     doc

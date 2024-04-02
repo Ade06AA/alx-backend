@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
 """
-doc
+Deletion-resilient hypermedia pagination
 """
+
 import csv
 import math
 from typing import List
-
-
-def index_range(page: int, page_size: int):
-    """
-    doc
-    """
-    val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
-    return val
 
 
 class Server:
@@ -22,6 +15,7 @@ class Server:
 
     def __init__(self):
         self.__dataset = None
+        self.__indexed_dataset = None
 
     def dataset(self) -> List[List]:
         """Cached dataset
@@ -34,10 +28,16 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        assert isinstance(page, int)
-        assert isinstance(page_size, int)
-        assert page > 0
-        assert page_size > 0
-        start, end = index_range(page, page_size)
-        return self.dataset()[start:end]
+    def indexed_dataset(self) -> Dict[int, List]:
+        """Dataset indexed by sorting position, starting at 0
+        """
+        if self.__indexed_dataset is None:
+            dataset = self.dataset()
+            truncated_dataset = dataset[:1000]
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+            }
+        return self.__indexed_dataset
+
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        pass
