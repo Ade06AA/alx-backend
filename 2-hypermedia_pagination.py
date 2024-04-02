@@ -4,7 +4,7 @@ doc
 """
 import csv
 import math
-from typing import List
+from typing import List, Tuple, Dict, Union
 from math import ceil
 
 
@@ -46,7 +46,7 @@ class Server:
         start, end = index_range(page, page_size)
         return self.dataset()[start:end]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Union[List, str, None, int]]:
         """
         doc
         """
@@ -57,7 +57,7 @@ class Server:
         start, end = index_range(page, page_size)
         fdata = self.dataset()
         data = fdata[start:end]
-        hyper = {}
+        hyper: Dict[str, Union[str, int, None, List]]= {}
         hyper["page_size"] = len(data)
         hyper["page"] = page
         hyper["data"] = data
