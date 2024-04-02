@@ -41,6 +41,9 @@ class Server:
 
     def index_range(self, page: int, page_size: int):
         """
+        this
+        is a
+        module
         doc
         """
         val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
@@ -48,6 +51,9 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
+        this
+        is a
+        module
         doc
         """
         assert isinstance(index, int)

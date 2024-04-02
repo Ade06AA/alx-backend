@@ -9,7 +9,6 @@ from math import ceil
 
 
 
-
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -31,6 +30,9 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
+        this
+        is a
+        method
         doc
         """
         assert isinstance(page, int)
@@ -42,6 +44,10 @@ class Server:
 
     def index_range(self, page: int, page_size: int):
         """
+        this
+        is
+        a
+        method
         doc
         """
         val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
@@ -49,6 +55,9 @@ class Server:
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Union[List, str, None, int]]:
         """
+        this
+        is a
+        method
         doc
         """
         assert isinstance(page, int)
@@ -58,7 +67,7 @@ class Server:
         start, end = self.index_range(page, page_size)
         fdata = self.dataset()
         data = fdata[start:end]
-        hyper: Dict[str, Union[str, int, None, List]]= {}
+        hyper: Dict[str, Union[str, int, None, List]] = {}
         hyper["page_size"] = len(data)
         hyper["page"] = page
         hyper["data"] = data

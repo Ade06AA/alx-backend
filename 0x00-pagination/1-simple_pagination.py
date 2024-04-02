@@ -35,6 +35,12 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        this
+        is a
+        module
+        doc
+        """
         assert isinstance(page, int)
         assert isinstance(page_size, int)
         assert page > 0
