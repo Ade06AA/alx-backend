@@ -39,5 +39,28 @@ class Server:
             }
         return self.__indexed_dataset
 
+    def index_range(self, page: int, page_size: int):
+        """
+        doc
+        """
+        val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
+        return val
+
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        pass
+        """
+        doc
+        """
+        assert isinstance(index, int)
+        assert isinstance(page_size, int)
+        assert index >= 0
+        assert page_size > 0
+        start, end = self.index_range(index + 1, page_size)
+        fdata = self.dataset()
+        data = fdata[start:end]
+        hyper: Dict[str, Union[str, int, None, List]] = {}
+        hyper["page_size"] = len(data)
+        hyper["index"] = index
+        hyper["data"] = data
+        next_ = index + page_size
+        hyper["next_index"] = next_ if next_ < len(fdata) else None
+        return hyper

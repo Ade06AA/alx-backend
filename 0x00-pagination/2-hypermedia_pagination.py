@@ -8,12 +8,6 @@ from typing import List, Tuple, Dict, Union
 from math import ceil
 
 
-def index_range(page: int, page_size: int):
-    """
-    doc
-    """
-    val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
-    return val
 
 
 class Server:
@@ -46,6 +40,13 @@ class Server:
         start, end = index_range(page, page_size)
         return self.dataset()[start:end]
 
+    def index_range(self, page: int, page_size: int):
+        """
+        doc
+        """
+        val: Tuple[int, int] = (page_size * page) - page_size, page_size * page
+        return val
+
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Union[List, str, None, int]]:
         """
         doc
@@ -54,7 +55,7 @@ class Server:
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
-        start, end = index_range(page, page_size)
+        start, end = self.index_range(page, page_size)
         fdata = self.dataset()
         data = fdata[start:end]
         hyper: Dict[str, Union[str, int, None, List]]= {}
